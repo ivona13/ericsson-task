@@ -2,6 +2,7 @@ plugins {
     java
     id("org.springframework.boot") version "3.3.3"
     id("io.spring.dependency-management") version "1.1.6"
+    id("com.google.cloud.tools.jib") version "3.4.3"
 }
 
 group = "eu.ericsson"
@@ -15,6 +16,22 @@ java {
         languageVersion = JavaLanguageVersion.of(21)
     }
 }
+
+jib {
+    from {
+        image = "openjdk:21-jdk-slim"
+        platforms {
+            platform {
+                os = "linux"
+                architecture = "arm64"
+            }
+        }
+    }
+    to {
+        image = "eu.ericsson/task"
+    }
+}
+
 
 tasks.getByName<Jar>("jar") {
     enabled = false

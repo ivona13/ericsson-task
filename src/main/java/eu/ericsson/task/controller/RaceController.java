@@ -1,9 +1,10 @@
 package eu.ericsson.task.controller;
 
-import eu.ericsson.task.dto.ParticipantRankDTO;
+import eu.ericsson.task.controller.dto.ParticipantRankDTO;
 import eu.ericsson.task.domain.HarryKart;
 import eu.ericsson.task.domain.Participant;
 import eu.ericsson.task.service.RaceService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import java.util.stream.IntStream;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1")
 public class RaceController {
@@ -28,6 +30,7 @@ public class RaceController {
 
     @PostMapping(path = "/calculate-winner", consumes = APPLICATION_XML_VALUE, produces = APPLICATION_JSON_VALUE)
     public List<ParticipantRankDTO> calculateWinner(@RequestBody HarryKart xml) {
+        log.debug("Calculating winners for HarryKart");
         List<Participant> sortedParticipants = raceService.calculateRank(xml);
 
         return IntStream.range(0, Math.min(NUMBER_OF_WINNERS, sortedParticipants.size()))

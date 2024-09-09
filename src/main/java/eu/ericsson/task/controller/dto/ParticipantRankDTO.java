@@ -1,4 +1,4 @@
-package eu.ericsson.task.dto;
+package eu.ericsson.task.controller.dto;
 
 import lombok.Builder;
 import lombok.Data;

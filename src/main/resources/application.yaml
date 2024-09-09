@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: ericsson-task
+
+application:
+  title: Harry Kart
+  description: <h3> Simple app for Harry Kart game </h3>
+  version: 0.0.1

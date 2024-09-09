@@ -4,6 +4,8 @@ import eu.ericsson.task.controller.dto.ParticipantRankDTO;
 import eu.ericsson.task.domain.HarryKart;
 import eu.ericsson.task.domain.Participant;
 import eu.ericsson.task.service.RaceService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +21,7 @@ import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
 @Slf4j
 @RestController
 @RequestMapping("/api/v1")
+@Tag(name = "race", description = "Operations related to race")
 public class RaceController {
     private static final int NUMBER_OF_WINNERS = 3;
 
@@ -28,6 +31,8 @@ public class RaceController {
         this.raceService = raceService;
     }
 
+    @Operation(summary = "Calculates winners for HarryKart",
+            description = "Calculates first three places for HarryKart based on the input XML file")
     @PostMapping(path = "/calculate-winner", consumes = APPLICATION_XML_VALUE, produces = APPLICATION_JSON_VALUE)
     public List<ParticipantRankDTO> calculateWinner(@RequestBody HarryKart xml) {
         log.debug("Calculating winners for HarryKart");

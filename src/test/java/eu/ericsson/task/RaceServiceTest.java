@@ -5,15 +5,12 @@ import eu.ericsson.task.domain.Participant;
 import eu.ericsson.task.service.RaceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
 import static eu.ericsson.task.HarryKartSubObj.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(MockitoExtension.class)
 public class RaceServiceTest {
 
     private RaceService raceService;

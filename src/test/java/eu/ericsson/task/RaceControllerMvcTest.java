@@ -1,11 +1,9 @@
 package eu.ericsson.task;
 
 import eu.ericsson.task.controller.RaceController;
-import eu.ericsson.task.domain.HarryKart;
-import eu.ericsson.task.domain.Participant;
+import eu.ericsson.task.domain.RacingParticipant;
 import eu.ericsson.task.service.RaceService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -75,7 +73,7 @@ class RaceControllerMvcTest {
                 </harryKart>
                 """;
 
-        List<Participant> sortedParticipants = Arrays.asList(
+        List<RacingParticipant> sortedParticipants = Arrays.asList(
                 createParticipantStubObj(1, WAIKIKI_SILVIO, 10.0),
                 createParticipantStubObj(2, TIMETOBELUCKY, 10),
                 createParticipantStubObj(3, HERCULES_BOKO, 10)

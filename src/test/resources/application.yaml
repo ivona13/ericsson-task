@@ -1,0 +1,4 @@
+application:
+  race:
+    number-of-winners: 3
+    track-length: 1000

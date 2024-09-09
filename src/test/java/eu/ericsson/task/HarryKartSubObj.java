@@ -3,7 +3,7 @@ package eu.ericsson.task;
 import eu.ericsson.task.domain.HarryKart;
 import eu.ericsson.task.domain.Lane;
 import eu.ericsson.task.domain.Loop;
-import eu.ericsson.task.domain.Participant;
+import eu.ericsson.task.domain.RacingParticipant;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,16 +43,16 @@ public class HarryKartSubObj {
                 ));
     }
 
-    public static Participant createParticipantStubObj(int lane, String name, int baseSpeed) {
-        return Participant.builder()
+    public static RacingParticipant createParticipantStubObj(int lane, String name, int baseSpeed) {
+        return RacingParticipant.builder()
                 .lane(lane)
                 .name(name)
                 .baseSpeed(baseSpeed)
                 .build();
     }
 
-    public static Participant createParticipantStubObj(int lane, String name, double totalTime) {
-        return Participant.builder()
+    public static RacingParticipant createParticipantStubObj(int lane, String name, double totalTime) {
+        return RacingParticipant.builder()
                 .lane(lane)
                 .name(name)
                 .totalTime(totalTime)
@@ -69,7 +69,7 @@ public class HarryKartSubObj {
     private static Loop createLoopStubObj(int number, List<Lane> lanes) {
         return Loop.builder()
                 .number(number)
-                .lanes(lanes)
+                .lane(lanes)
                 .build();
     }
 }

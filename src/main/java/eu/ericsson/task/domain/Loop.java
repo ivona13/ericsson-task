@@ -15,6 +15,6 @@ public class Loop {
     private int number;
 
     @JacksonXmlElementWrapper(useWrapping = false)
-    @JacksonXmlProperty(localName = "lane")
-    private List<Lane> lanes;
+    @JacksonXmlProperty
+    private List<Lane> lane;
 }

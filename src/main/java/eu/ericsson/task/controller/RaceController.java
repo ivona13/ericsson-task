@@ -2,7 +2,7 @@ package eu.ericsson.task.controller;
 
 import eu.ericsson.task.controller.dto.ParticipantRankDTO;
 import eu.ericsson.task.domain.HarryKart;
-import eu.ericsson.task.domain.Participant;
+import eu.ericsson.task.domain.RacingParticipant;
 import eu.ericsson.task.service.RaceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -40,7 +40,7 @@ public class RaceController {
     @PostMapping(path = "/calculate-winner", consumes = APPLICATION_XML_VALUE, produces = APPLICATION_JSON_VALUE)
     public List<ParticipantRankDTO> calculateWinner(@RequestBody HarryKart xml) {
         log.debug("Calculating winners for HarryKart");
-        List<Participant> sortedParticipants = raceService.calculateRank(xml);
+        List<RacingParticipant> sortedParticipants = raceService.calculateRank(xml);
 
         return IntStream.range(0, Math.min(numberOfWinners, sortedParticipants.size()))
                 .mapToObj(i -> ParticipantRankDTO.builder()

@@ -2,14 +2,14 @@ package eu.ericsson.task.service;
 
 import eu.ericsson.task.configuration.exception.HarryKartException;
 import eu.ericsson.task.domain.HarryKart;
-import eu.ericsson.task.domain.Participant;
 import eu.ericsson.task.domain.RacingParticipant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
@@ -37,27 +37,24 @@ public class RaceService {
 
     public List<RacingParticipant> calculateRank(HarryKart harryKart) {
         log.debug("Calculating the rank of the participants");
-        List<RacingParticipant> winners = new ArrayList<>();
-
-        List<Participant> participants = harryKart.getParticipants();
-        for (int participantIndex = 0; participantIndex < harryKart.getParticipants().size(); participantIndex++) {
-            Participant participant = participants.get(participantIndex);
-            RacingParticipant racingParticipant = new RacingParticipant(participant.getLane(), participant.getName(), participant.getBaseSpeed());
-            log.debug("Processing participant: {}", racingParticipant.getName());
-            for (int loop = 0; loop < harryKart.getNumberOfLoops(); loop++) {
-                int speedToBeAdded = racingParticipant.getBaseSpeed();
-                if (loop > 0) {
-                    speedToBeAdded = harryKart.getPowerUps().get(loop - 1).getLane().get(participantIndex).getPowerUp();
-                }
-                racingParticipant.addCurrentSpeed(speedToBeAdded);
-                double currentTime = calculateTime(racingParticipant.getCurrentSpeed());
-                racingParticipant.addToTotalTime(currentTime);
-                log.debug("Total time for participant {}: {}", racingParticipant.getName(), racingParticipant.getTotalTime());
-            }
-            winners.add(racingParticipant);
-        }
-
-        winners.sort(RacingParticipant::compareTo);
+        List<RacingParticipant> winners = harryKart.getParticipants().stream()
+                .map(participant -> {
+                    RacingParticipant racingParticipant = new RacingParticipant(participant.getLane(), participant.getName(), participant.getBaseSpeed());
+                    log.debug("Processing participant: {}", racingParticipant.getName());
+                    IntStream.range(0, harryKart.getNumberOfLoops()).forEach(loop -> {
+                        int speedToBeAdded = racingParticipant.getBaseSpeed();
+                        if (loop > 0) {
+                            speedToBeAdded = harryKart.getPowerUps().get(loop - 1).getLane().get(participant.getLane() - 1).getPowerUp();
+                        }
+                        racingParticipant.addCurrentSpeed(speedToBeAdded);
+                        double currentTime = calculateTime(racingParticipant.getCurrentSpeed());
+                        racingParticipant.addToTotalTime(currentTime);
+                        log.debug("Total time for participant {}: {}", racingParticipant.getName(), racingParticipant.getTotalTime());
+                    });
+                    return racingParticipant;
+                })
+                .sorted(Comparator.comparingDouble(RacingParticipant::getTotalTime))
+                .toList();
         log.info("Finished calculating rank, winners: {}", winners);
         return winners;
     }

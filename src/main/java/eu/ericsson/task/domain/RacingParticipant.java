@@ -6,7 +6,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class RacingParticipant extends Participant implements Comparable<RacingParticipant> {
+public class RacingParticipant extends Participant {
 
     private double totalTime;
     private int currentSpeed;
@@ -28,10 +28,5 @@ public class RacingParticipant extends Participant implements Comparable<RacingP
 
     public void addToTotalTime(double time) {
         this.totalTime += time;
-    }
-
-    @Override
-    public int compareTo(RacingParticipant o) {
-        return Double.compare(this.totalTime, o.totalTime);
     }
 }

@@ -29,10 +29,13 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(AuthenticationException.class)
-    ProblemDetail handleAuthenticationErrorResponseException() {
-        return ProblemDetail.forStatusAndDetail(
-                UNAUTHORIZED,
-                "Could not authenticate user"
+    public ResponseEntity<ProblemDetail> handleAuthenticationErrorResponseException(AuthenticationException ex) {
+        log.error(ex.getMessage(), ex);
+        return new ResponseEntity<>(
+                ProblemDetail.forStatusAndDetail(
+                        UNAUTHORIZED,
+                        "Could not authenticate user"
+                ), UNAUTHORIZED
         );
     }
 

@@ -23,6 +23,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final String[] AUTH_WHITELIST = {"/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**"};
     @Value("${security.user.username}")
     private String userName;
     @Value("${security.user.password}")
@@ -34,7 +35,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
+                        .requestMatchers(AUTH_WHITELIST).permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ehc -> ehc.authenticationEntryPoint(customAuthenticationEntryPoint))

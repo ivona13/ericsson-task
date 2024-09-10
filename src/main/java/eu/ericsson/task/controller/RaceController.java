@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import static eu.ericsson.task.service.RaceService.validateHarryKart;
 import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
@@ -30,16 +31,16 @@ import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
 @Tag(name = "race", description = "Operations related to race")
 public class RaceController {
 
+    final RaceService raceService;
     @Value("${application.race.number-of-winners}")
     private int numberOfWinners;
-
-    final RaceService raceService;
 
     @Operation(summary = "Calculates winners for HarryKart",
             description = "Calculates first three places for HarryKart based on the input XML file")
     @PostMapping(path = "/calculate-winner", consumes = APPLICATION_XML_VALUE, produces = APPLICATION_JSON_VALUE)
     public List<ParticipantRankDTO> calculateWinner(@RequestBody HarryKart xml) {
         log.debug("Calculating winners for HarryKart");
+        validateHarryKart(xml);
         List<RacingParticipant> sortedParticipants = raceService.calculateRank(xml);
 
         return IntStream.range(0, Math.min(numberOfWinners, sortedParticipants.size()))

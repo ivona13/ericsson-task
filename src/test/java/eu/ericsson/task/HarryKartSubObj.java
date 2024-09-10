@@ -13,6 +13,47 @@ public class HarryKartSubObj {
     public static final String TIMETOBELUCKY = "TIMETOBELUCKY";
     public static final String HERCULES_BOKO = "HERCULES BOKO";
     public static final String CARGO_DOOR = "CARGO DOOR";
+    public static final String HARRY_KART_XML_EXAMPLE = """
+            <harryKart>
+                <numberOfLoops>3</numberOfLoops>
+                <startList>
+                    <participant>
+                        <lane>1</lane>
+                        <name>TIMETOBELUCKY</name>
+                        <baseSpeed>10</baseSpeed>
+                    </participant>
+                    <participant>
+                        <lane>2</lane>
+                        <name>CARGO DOOR</name>
+                        <baseSpeed>10</baseSpeed>
+                    </participant>
+                    <participant>
+                        <lane>3</lane>
+                        <name>HERCULES BOKO</name>
+                        <baseSpeed>10</baseSpeed>
+                    </participant>
+                    <participant>
+                        <lane>4</lane>
+                        <name>WAIKIKI SILVIO</name>
+                        <baseSpeed>10</baseSpeed>
+                    </participant>
+                </startList>
+                <powerUps>
+                    <loop number="1">
+                        <lane number="1">0</lane>
+                        <lane number="2">0</lane>
+                        <lane number="3">1</lane>
+                        <lane number="4">3</lane>
+                    </loop>
+                    <loop number="2">
+                        <lane number="1">10</lane>
+                        <lane number="2">0</lane>
+                        <lane number="3">0</lane>
+                        <lane number="4">1</lane>
+                    </loop>
+                </powerUps>
+            </harryKart>
+            """;
 
     public static HarryKart givenHarryKartStubObj() {
         return givenHarryKartBuilder().build();
@@ -48,14 +89,6 @@ public class HarryKartSubObj {
                 .lane(lane)
                 .name(name)
                 .baseSpeed(baseSpeed)
-                .build();
-    }
-
-    public static RacingParticipant createParticipantStubObj(int lane, String name, double totalTime) {
-        return RacingParticipant.builder()
-                .lane(lane)
-                .name(name)
-                .totalTime(totalTime)
                 .build();
     }
 

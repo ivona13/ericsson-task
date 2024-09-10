@@ -183,3 +183,28 @@ Input 2:
     </powerUps>
 </harryKart>
 ```
+
+### Swagger Documentation
+You can access the Swagger UI for interactive API documentation at:
+
+```bash
+http://localhost:8080/swagger-ui.html
+```
+The OpenAPI JSON specification can be fetched from:
+```bash
+http://localhost:8080/v3/api-docs
+
+```
+This documentation will contain the list of endpoints with their request and response details.
+
+### Security
+The API is secured with Basic Authentication. Use the following credentials to access secured endpoints:
+
+```text
+Username: user
+Password: password
+```
+This is an example of how to call the API using curl with basic authentication:
+```bash
+curl -u user:password http://localhost:8080/api/v1/calculate-winner -X POST -H "Content-Type: application/xml" -d "<harryKart><numberOfLoops>3</numberOfLoops><startList><participant><lane>1</lane><name>TIMETOBELUCKY</name><baseSpeed>10</baseSpeed></participant><participant><lane>2</lane><name>CARGO DOOR</name><baseSpeed>10</baseSpeed></participant><participant><lane>3</lane><name>HERCULES BOKO</name><baseSpeed>10</baseSpeed></participant><participant><lane>4</lane><name>WAIKIKI SILVIO</name><baseSpeed>10</baseSpeed></participant></startList><powerUps><loop number=\"1\"><lane number=\"1\">1</lane><lane number=\"2\">1</lane><lane number=\"3\">0</lane><lane number=\"4\">-2</lane></loop><loop number=\"2\"><lane number=\"1\">1</lane><lane number=\"2\">-1</lane><lane number=\"3\">2</lane><lane number=\"4\">-2</lane></loop></powerUps></harryKart>"
+```

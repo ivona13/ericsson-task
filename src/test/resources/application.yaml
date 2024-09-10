@@ -1,4 +1,11 @@
 application:
+  title: Harry Kart
+  description: <h3> Simple app for Harry Kart game </h3>
+  version: 0.0.1
   race:
     number-of-winners: 3
     track-length: 1000
+security:
+  user:
+    username: user
+    password: password

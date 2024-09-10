@@ -1,3 +1,15 @@
+# Harry-Kart
+
+- [Harry-Kart Task Description](#harry-kart-task-description)
+- [Example 1](#example-1)
+- [Example 2](#example-2)
+- [Swagger Documentation](#swagger-documentation)
+- [Security](#security)
+- [Building Docker Image](#building-docker-image)
+
+---
+
+### Harry-Kart task description
 Harry-Kart in a special kind of horse racing.
 
 The horses participating have a base speed, they can run with that speed indefinitely.
@@ -10,9 +22,9 @@ The power-ups/downs are numbers, negative or positive, representing how much the
 
 Your task is to compute the top 3 ranking.
 
-## Example 1
+### Example 1
 
-### Input
+#### Input
 
 **Number of loops:** 3
 
@@ -40,7 +52,7 @@ Your task is to compute the top 3 ranking.
 
 | 2 | 1 | -1 | 2 | -2 |
 
-### Result
+#### Result
 
 | Position | Horse Name |
 
@@ -52,9 +64,9 @@ Your task is to compute the top 3 ranking.
 
 | 3rd | CARGO DOOR |
 
-## Example 2
+### Example 2
 
-### Input
+#### Input
 
 **Number of loops:** 3
 
@@ -82,7 +94,7 @@ Your task is to compute the top 3 ranking.
 
 | 2 | 10 | 0 | 0 | 1 |
 
-### Result
+#### Result
 
 | Position | Horse Name |
 
@@ -207,4 +219,10 @@ Password: password
 This is an example of how to call the API using curl with basic authentication:
 ```bash
 curl -u user:password http://localhost:8080/api/v1/calculate-winner -X POST -H "Content-Type: application/xml" -d "<harryKart><numberOfLoops>3</numberOfLoops><startList><participant><lane>1</lane><name>TIMETOBELUCKY</name><baseSpeed>10</baseSpeed></participant><participant><lane>2</lane><name>CARGO DOOR</name><baseSpeed>10</baseSpeed></participant><participant><lane>3</lane><name>HERCULES BOKO</name><baseSpeed>10</baseSpeed></participant><participant><lane>4</lane><name>WAIKIKI SILVIO</name><baseSpeed>10</baseSpeed></participant></startList><powerUps><loop number=\"1\"><lane number=\"1\">1</lane><lane number=\"2\">1</lane><lane number=\"3\">0</lane><lane number=\"4\">-2</lane></loop><loop number=\"2\"><lane number=\"1\">1</lane><lane number=\"2\">-1</lane><lane number=\"3\">2</lane><lane number=\"4\">-2</lane></loop></powerUps></harryKart>"
+```
+
+### Building Docker image
+To build the Docker image, run the following command:
+```bash
+./gradlew jibDockerBuild 
 ```

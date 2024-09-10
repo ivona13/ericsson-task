@@ -28,7 +28,7 @@ jib {
         }
     }
     to {
-        image = "eu.ericsson/task"
+        image = "ericsson/task"
     }
 }
 

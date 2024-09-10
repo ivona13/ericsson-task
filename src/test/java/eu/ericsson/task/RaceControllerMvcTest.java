@@ -47,4 +47,16 @@ class RaceControllerMvcTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized());
     }
+
+    @Test
+    void calculateWinner_ShouldReturnInternalServerErrorForInvalidXml() throws Exception {
+        mockMvc.perform(post("/api/v1/calculate-winner")
+                        .with(httpBasic("user", "password"))
+                        .contentType(MediaType.APPLICATION_XML)
+                        .content("<harryKart><numberOfLoops>0</numberOfLoops></harryKart>")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isInternalServerError())
+                .andExpect(jsonPath("$.status").value(500))
+                .andExpect(jsonPath("$.detail").value("Number of loops must be at least one"));
+    }
 }

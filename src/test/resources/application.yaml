@@ -5,7 +5,9 @@ application:
   race:
     number-of-winners: 3
     track-length: 1000
-security:
-  user:
-    username: user
-    password: password
+
+spring:
+  security:
+    user:
+      name: user
+      password: password
